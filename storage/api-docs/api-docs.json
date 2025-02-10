@@ -1,0 +1,1088 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "WorkNook OpenApi Documentation",
+        "description": "L5 Swagger OpenApi",
+        "contact": {
+            "email": "hello@illiyin.studio"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/admins/store": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Store new or update admins",
+                "description": "Returns admins data",
+                "operationId": "storeAdmins",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - Remove the admin_id object for create new data Admin <b>or</b>\n                    <br> - Fill in the admin_id object for update data Admin\n                    <br> - Empty object if you don't want to change data\n                    <br> - role ( 1 = superadmin, 2, admin staff )\n                    <br> - soft_delete (false = active, true = deleted)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "admin_id": {
+                                        "type": "string",
+                                        "example": "e984fad3-bb0e-4416-bee6-8da0923b83e0"
+                                    },
+                                    "fullname": {
+                                        "type": "string",
+                                        "example": "sol al-likin"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "solikin@test.co"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "solikin"
+                                    },
+                                    "profile_photo": {
+                                        "type": "string",
+                                        "example": "base_64-string"
+                                    },
+                                    "role": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "soft_delete": {
+                                        "type": "boolean",
+                                        "default": "false"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": {
+                                            "admin_id": "e984fad3-bb0e-4416-bee6-8da0923b83e0",
+                                            "fullname": "sol al-likin",
+                                            "email": "solikin@test.co",
+                                            "password": "$2y$12$Aum3lT5OhXNG5D7b7t.f6uMIERRDXHPgfpvza6lGjBZ8hzoK91QrG",
+                                            "profile_photo": "https://solikins/image.png",
+                                            "role": 1,
+                                            "soft_delete": 0,
+                                            "created_at": "2024-01-17T09:04:50.000000Z",
+                                            "updated_at": "2024-01-17T09:14:08.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/login": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Login admins",
+                "description": "Returns admins data",
+                "operationId": "loginAdmins",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - <b>Email</b> can be filled by email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "solikin@test.co"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "solikin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": {
+                                            "id": "e984fad3-bb0e-4416-bee6-8da0923b83e0",
+                                            "fullname": "sol al-likin",
+                                            "email": "solikin@test.co",
+                                            "profile_photo": "https://solikins/image.png",
+                                            "role": 1,
+                                            "token": "aPpLkwDst3jB3jtETh727Ood9npcKwZj06UuruCLRaFnrGfQMBPAMzghHpdJvSY9Xq2BzJAOPf66kOdWCmsCtdJGM0C2Iyf3glgl"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/show": {
+            "get": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Show admins",
+                "description": "Returns admins data",
+                "operationId": "showAdmins",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - Fill <b>admin_id</b> for retrieve only 1 data.",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "admin_id": {
+                                        "type": "string",
+                                        "example": "e984fad3-bb0e-4416-bee6-8da0923b83e0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": [
+                                            {
+                                                "admin_id": "fa17ec43-db7f-4e1d-8041-bc29ebf6b56b",
+                                                "email": "solikin@test.co",
+                                                "fullname": "sol al-likin",
+                                                "profile_photo": null,
+                                                "created_at": "2024-01-17T09:04:31.000000Z"
+                                            },
+                                            {
+                                                "admin_id": "e984fad3-bb0e-4416-bee6-8da0923b83e0",
+                                                "email": "solikin@test.co",
+                                                "fullname": "sol al-likin",
+                                                "profile_photo": null,
+                                                "created_at": "2024-01-17T09:04:50.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/forgot-password/request": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Request email sent for forgot password Admin",
+                "description": "Returns admin data",
+                "operationId": "forgotPasswordRequestAdmin",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - <b>Email</b> can be filled by email to resend forgot password code",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "solikin@test.co"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": "Email has been sent"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/forgot-password/check-code": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Check code forgot password admins",
+                "description": "Returns forgot password admins data",
+                "operationId": "forgotPasswordCheckCodeAdmin",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - code is required",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "codeforgotpassword"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": {
+                                            "admin_id": "e984fad3-bb0e-4416-bee6-8da0923b83e0",
+                                            "fullname": "sol al-likin",
+                                            "email": "solikin@test.co",
+                                            "password": "$2y$12$Aum3lT5OhXNG5D7b7t.f6uMIERRDXHPgfpvza6lGjBZ8hzoK91QrG",
+                                            "profile_photo": null,
+                                            "role": 1,
+                                            "forgot_password": "abc",
+                                            "soft_delete": 0,
+                                            "created_at": "2024-01-17T09:04:50.000000Z",
+                                            "updated_at": "2024-01-17T09:14:08.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/forgot-password/submit": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "Submit forgot password with code admins",
+                "description": "Returns admins data",
+                "operationId": "forgotPasswordSubmitAdmins",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - <b>Email</b>, <b>Code</b>, and <b>Password</b> is required.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "solikin@test.co"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "example": "aMsaLz31dsa)31ewq@1sdf^$kjsdnf)(#)"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "solikin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": "Password has been changed."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/forgot-password-v2": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "forgot password v2",
+                "description": "forgot password V2 is sending by email and got the password",
+                "operationId": "forgotPasswordV2Admins",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - <b>admin_id</b> is required.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "rifald84@gmail.com"
+                                    },
+                                    "current_password": {
+                                        "type": "string",
+                                        "example": "rifaldi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": "Password has been changed."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admins/reset-password": {
+            "post": {
+                "tags": [
+                    "Admins"
+                ],
+                "summary": "reset password",
+                "description": "reset password",
+                "operationId": "resetPasswordAdmin",
+                "requestBody": {
+                    "description": "<b>Note:</b><br> - <b>email</b> is required.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "robert@test.co"
+                                    },
+                                    "current_password": {
+                                        "type": "string",
+                                        "example": "robert"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "robert123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "description": "The response data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 200,
+                                        "success": true,
+                                        "data": {
+                                            "email": "robert@test.co",
+                                            "new_password": "robert"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "errors": {
+                                            "description": "The response error reason",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 400,
+                                        "success": false,
+                                        "errors": "Reason of bad request operation."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "description": "The response status code",
+                                            "type": "integer"
+                                        },
+                                        "success": {
+                                            "description": "The response success",
+                                            "type": "boolean"
+                                        },
+                                        "error": {
+                                            "description": "The response error code",
+                                            "type": "string"
+                                        },
+                                        "detail": {
+                                            "description": "The response error detail",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "status_code": 401,
+                                        "success": false,
+                                        "error": "tokenNotFound",
+                                        "detail": "Authorization Token not found"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admins",
+            "description": "Admins"
+        }
+    ]
+}
