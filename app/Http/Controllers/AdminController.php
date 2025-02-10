@@ -187,7 +187,7 @@ class AdminController extends Controller
             if ($usedData) return ResultHelpers::errors('Email is already in use.', 400, false);
 
             $data = new Admins();
-            $data->admin_id = Str::uuid();
+            $data->admin_id = Str::uuid7();
         }
 
         if ($profile_photo) {
@@ -391,7 +391,7 @@ class AdminController extends Controller
         $expired = Carbon::now()->addDays(3);
 
         $auth_token = new AuthenticationTokens();
-        $auth_token->authentication_token_id = Str::uuid();
+        $auth_token->authentication_token_id = Str::uuid7();
         $auth_token->user_auth = "admin-" . $data->admin_id;
         $auth_token->token = $str_token;
         $auth_token->expired = $expired;

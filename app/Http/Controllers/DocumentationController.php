@@ -24,7 +24,7 @@ class DocumentationController extends Controller
             $expired = Carbon::now()->endOfDay();
 
             $auth_token = new AuthenticationTokens();
-            $auth_token->authentication_token_id = Str::uuid();
+            $auth_token->authentication_token_id = Str::uuid7();
             $auth_token->user_auth = "api";
             $auth_token->token = $str_token;
             $auth_token->expired = $expired;
@@ -60,7 +60,7 @@ class DocumentationController extends Controller
                 $expired = Carbon::now()->endOfDay();
 
                 $auth_token = new AuthenticationTokens();
-                $auth_token->authentication_token_id = Str::uuid();
+                $auth_token->authentication_token_id = Str::uuid7();
                 $auth_token->user_auth = "api";
                 $auth_token->token = $str_token;
                 $auth_token->expired = $expired;
